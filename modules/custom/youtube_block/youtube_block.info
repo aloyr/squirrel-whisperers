@@ -1,0 +1,5 @@
+name = Youtube Block
+version = 7.x-1.0
+description = Just another way to display a bunch of Youtube videos.
+package = Youtube
+core = 7.x

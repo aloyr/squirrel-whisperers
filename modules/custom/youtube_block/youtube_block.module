@@ -1,0 +1,136 @@
+<?php
+
+/**
+ * Implements hook_help().
+ *
+ * Gives us a set of help documentation as recommended by the Drupal community standards.
+ */
+function youtube_block_help($path, $arg) {
+  switch ($path) {
+    case 'examples/youtube_block':
+      return "<p>" . t("This custom contrib module allows users to add Youtube videos to a block.
+      To use, simply enable the Youtube block (in admin/blocks) and add as many Youtube video IDs
+      as you want. This module will not load the Youtube player directly, for performance reasons.
+      Instead, it will load just the video's thumbnail and will load the player only when the
+      thumbnail gets clicked.") . "</p>";
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function youtube_block_block_info() {
+    $blocks = array();
+    $blocks['youtube'] = array(
+        'info' => t('Youtube Block'),
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function youtube_block_block_configure($delta='') {
+    $form = array();
+
+    switch($delta) {
+        case 'youtube':
+            // Textarea form element
+            $form['youtube_videos'] = array(
+                '#type' => 'textarea',
+                '#title' => t('Add Youtube videos'),
+                '#description' => t('<p>Add Youtube video IDs here. Separate multiple IDs with a comma.</p>
+                <p>An example with multiple IDs will look like:<br>
+                <em>juSrk9VUkUU,qAfzDsZCK2c,MZJ9UX7qtYg</em></p>'),
+                '#element_validate' => array( 'youtube_block_custom_validate' ),
+                '#default_value'=> variable_get('youtube_block_videos', '')
+            );
+            break;
+    }
+    return $form;
+}
+
+/**
+ * Implements custom youtube_block_custom_validate().
+ *
+ * Check to make sure the user is inserting unique Youtube IDs.
+ */
+function youtube_block_custom_validate($element) {
+    //Todo: Validate IDs
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function youtube_block_block_save($delta = '', $edit = array()) {
+    switch($delta) {
+        case 'youtube' :
+            // Saving the Youtube videos
+            variable_set('youtube_block_videos', $edit['youtube_videos']);
+
+            break;
+    }
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function youtube_block_block_view($delta='') {
+    $block = array();
+
+    switch($delta) {
+        case 'youtube' :
+            $block['content'] = youtube_block_build_view();
+            break;
+    }
+
+    return $block;
+}
+
+/**
+ * Assemble renderable array for block content.
+ *
+ * @return Returns a renderable array of block content.
+ */
+function youtube_block_build_view() {
+    $block = array();
+
+    //Get rid of any spaces + trailing/leading commas
+    $id_cleanup = preg_replace('/\s+/', '', trim(variable_get('youtube_block_videos', '')));
+
+    //Get all Youtube videos
+    $videos = explode(',', $id_cleanup);
+
+    $output = '';
+    if (!empty($videos)) {
+        foreach ($videos as $video) {
+            $image = theme_image(array(
+                'path' => ('https://img.youtube.com/vi/' . $video . '/hqdefault.jpg'),
+                'alt' => t('Youtube Video'),
+                'title' => t('Youtube Video'),
+                'attributes' => array('class' => 'youtube-video'),
+            ));
+            $output .= '<div class="youtube">' . $image . '</div>';
+        }
+    }
+
+    // Block output in HTML with div wrapper and custom JS + CSS loaded
+    $block = array(
+        'images' => array(
+            '#prefix' => '',
+            '#type' => 'markup',
+            '#markup' => $output,
+            '#attached' => array(
+                'css' => array(
+                    drupal_get_path('module', 'youtube_block') . '/css/youtube_block.css',
+                ),
+                'js' => array(
+                    drupal_get_path('module', 'youtube_block') . '/js/youtube_block.js',
+                ),
+            ),
+        )
+    );
+
+    return $block;
+}
