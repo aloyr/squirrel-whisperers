@@ -45,7 +45,7 @@ function youtube_block_block_configure($delta='') {
                 <p>An example with multiple IDs will look like:<br>
                 <em>juSrk9VUkUU,qAfzDsZCK2c,MZJ9UX7qtYg</em></p>'),
                 //'#element_validate' => array( 'youtube_block_custom_validate' ),
-                '#default_value'=> variable_get('youtube_block_videos', '')
+                '#default_value'=> variable_get('youtube_block_videos', 'Tj75Arhq5ho,_kscEoohfVY,wsrvmNtWU4E')
             );
             break;
     }
@@ -98,7 +98,7 @@ function youtube_block_build_block() {
     $block = array();
 
     // Get rid of any spaces
-    $id_cleanup = preg_replace('/\s+/', '', variable_get('youtube_block_videos', ''));
+    $id_cleanup = preg_replace('/\s+/', '', variable_get('youtube_block_videos', 'Tj75Arhq5ho,_kscEoohfVY,wsrvmNtWU4E'));
 
     // Create an array of the IDs
     $videos = explode(',', $id_cleanup);
