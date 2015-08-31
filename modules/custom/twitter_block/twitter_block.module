@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * Implements hook_help().
+ *
+ * Gives us a set of help documentation as recommended by the Drupal community standards.
+ */
+function twitter_block_help($path, $arg) {
+    switch ($path) {
+        case 'examples/twitter_block':
+            return "<p>" . t("This super simple module defines and loads a
+            Twitter widget block for the Squirrel Whisperers band. ") . "</p>";
+    }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function twitter_block_block_info() {
+    $blocks = array();
+    $blocks['twitter'] = array(
+        'info' => t('Twitter Block'),
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function twitter_block_block_view($delta='') {
+    $block = array();
+
+    switch($delta) {
+        case 'twitter' :
+            $block['content'] = twitter_block_build_block();
+            break;
+    }
+
+    return $block;
+}
+
+/**
+ * Assemble renderable array for block content.
+ *
+ * @return Returns a renderable array of block content.
+ */
+function twitter_block_build_block() {
+    $block = array();
+
+    // Load the Twitter widget as specified in the Twitter API
+    $block = array(
+        'twitter_widget' => array(
+            '#prefix' => '<div class="section-wrapper">',
+            '#suffix' => '</div>',
+            '#type' => 'markup',
+            '#markup' => '<a class="twitter-timeline"
+                           href="https://twitter.com/Metallica"
+                           data-chrome="nofooter noheader noborders transparent"
+                           data-widget-id="638099805864984577">
+                           @Metallica Tweets
+                           </a>',
+            '#attached' => array(
+                'js' => array(
+                     array(
+                        'data' => '!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");',
+                        'type' => 'inline'
+                    ),
+                ),
+            ),
+        )
+    );
+
+    return $block;
+}

@@ -1,0 +1,5 @@
+name = Twitter Block
+version = 7.x-1.0
+description = Show the Twitter feed of the Squirrel Whisperers band.
+package = Squirrel Whisperers
+core = 7.x
