@@ -35,3 +35,43 @@
     @include element-invisible-off;
   }
 }
+
+// Mixin for box shadows
+@mixin box-shadow($top, $left, $blur, $size, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $size $color;
+    -moz-box-shadow:inset $top $left $blur $size $color;
+    box-shadow:inset $top $left $blur $size $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $size $color;
+    -moz-box-shadow: $top $left $blur $size $color;
+    box-shadow: $top $left $blur $size $color;
+  }
+}
+
+// Mixin for buttons
+@mixin button($color, $hover_color) {
+  border: $color solid 1px;
+  border-radius: 3px;
+  color: $color !important;
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 5px;
+  margin: 10px;
+  text-decoration: none;
+  min-width: 80px;
+  position: relative;
+  float: left;
+  transition: color .1s ease;
+
+  &:hover {
+    text-decoration: none;
+    background: $color;
+    color: $hover_color !important;
+  }
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+}

@@ -16,14 +16,14 @@
             function addModal(event, song, album, albumCover, buyItNow, trackNumber, trackPreview) {
                 if (counter != 1) {
                     var makeDiv = document.createElement('div');
-                    makeDiv.className = 'table-size';
+                    makeDiv.className = 'modal-overlay';
                     var overlayDiv = document.createElement('div');
-                    overlayDiv.className = 'table-size-overlay';
+                    overlayDiv.className = 'modal-container';
+                    overlayDiv.innerHTML += '<a href="#close" class="close" data-action="closeModal"> X </a>';
                     overlayDiv.innerHTML += '<div class="album-cover"><img src="' + albumCover + '"></div>';
                     overlayDiv.innerHTML += '<div class="track-info"><h3>' + song + '</h3><h4>' + album + '</h4></div>';
-                    overlayDiv.innerHTML += '<audio src="' + trackPreview + '" controls autoplay>' + '<p>Your browser does not support the audio element</p></audio>';
                     overlayDiv.innerHTML += '<a href="' + buyItNow + '" class="btn" target="_blank">Buy on iTunes</a>';
-                    overlayDiv.innerHTML += '<a href="#close" class="btn" data-action="closeModal">Close</a>';
+                    overlayDiv.innerHTML += '<div class="player"><audio src="' + trackPreview + '" controls>' + '<p>Your browser does not support the audio element</p></audio></div>';
                     makeDiv.appendChild(overlayDiv);
                     jQuery('ul.discography-songs').prepend(makeDiv);
                     counter++;
@@ -33,7 +33,7 @@
             function removeModal() {
                 //Remove modal box
                 if (counter == 1) {
-                    jQuery('div.table-size').remove();
+                    jQuery('div.modal-overlay').remove();
                     counter = 0;
                 }
             }

@@ -16,9 +16,13 @@
                 <?php if ($site_name): ?>
                     <h1 class="header__site-name" id="site-name">
                         <?php if ($logo): ?>
-                            <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="header__logo" id="logo"><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" class="header__logo-image" /></a>
+                            <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"
+                               class="header__logo" id="logo"><img src="<?php print $logo; ?>"
+                                                                   alt="<?php print t('Home'); ?>"
+                                                                   class="header__logo-image"/></a>
                         <?php endif; ?>
-                        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" class="header__site-link" rel="home"><span><?php print $site_name; ?></span></a>
+                        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>"
+                           class="header__site-link" rel="home"><span><?php print $site_name; ?></span></a>
                     </h1>
                 <?php endif; ?>
 
@@ -72,13 +76,13 @@
         <div id="fixed-menu">
 
             <?php if ($main_menu): ?>
-                    <nav class="main-nav" role="navigation" tabindex="-1">
-                        <div class="fixed-menu-wrapper">
+                <nav class="main-nav" role="navigation" tabindex="-1">
+                    <div class="fixed-menu-wrapper">
                         <?php if ($site_name): ?>
                             <h4>
                                 <?php print $site_name; ?>
                             </h4>
-                            <?php endif; ?>
+                        <?php endif; ?>
                         <?php
                         print theme('links__system_main_menu', array(
                             'links' => $main_menu,
@@ -91,7 +95,7 @@
                                 'class' => array('element-invisible'),
                             ),
                         )); ?>
-                </div>
+                    </div>
                 </nav>
             <?php endif; ?>
 
@@ -101,7 +105,7 @@
 
         <?php
         // Render the sidebars to see if there's anything in them.
-        $sidebar_first  = render($page['sidebar_first']);
+        $sidebar_first = render($page['sidebar_first']);
         $sidebar_second = render($page['sidebar_second']);
         ?>
 
