@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Squirrel Whisperers Song CT feature.
+ */
+
+include_once 'squirrel_whisperers_song_ct.features.inc';

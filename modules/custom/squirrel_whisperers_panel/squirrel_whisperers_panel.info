@@ -1,0 +1,10 @@
+name = Squirrel Whisperers Panel
+description = Contains the panel configuration for the website.
+core = 7.x
+package = Squirrel Whisperers
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = page_manager
+features[ctools][] = page_manager:pages_default:1
+features[features_api][] = api:2
+features[page_manager_pages][] = squirrel_whisperers_home

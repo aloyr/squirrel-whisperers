@@ -1,0 +1,10 @@
+name = Discography Block
+description = Contains the view that builds the discography block.
+core = 7.x
+package = Squirrel Whisperers
+version = 7.x-1.0
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = discography
+features_exclude[dependencies][ctools] = ctools

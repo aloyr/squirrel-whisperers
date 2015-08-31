@@ -1,0 +1,12 @@
+name = Squirrel Whisperers Songs Feed
+description = Contains the Feeds module components for the song import from iTunes.
+core = 7.x
+package = Squirrel Whisperers
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = feeds
+dependencies[] = feeds_ui
+dependencies[] = feeds_ex
+features[ctools][] = feeds:feeds_importer_default:1
+features[features_api][] = api:2
+features[feeds_importer][] = songs

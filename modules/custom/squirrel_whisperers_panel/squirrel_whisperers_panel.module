@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Squirrel Whisperers Panel feature.
+ */
+
+include_once 'squirrel_whisperers_panel.features.inc';

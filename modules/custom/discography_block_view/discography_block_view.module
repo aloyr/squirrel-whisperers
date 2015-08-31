@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Discography Block feature.
+ */
+
+include_once 'discography_block_view.features.inc';

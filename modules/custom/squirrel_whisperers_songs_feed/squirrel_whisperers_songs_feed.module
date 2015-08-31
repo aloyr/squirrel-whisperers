@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Squirrel Whisperers Songs Feed feature.
+ */
+
+include_once 'squirrel_whisperers_songs_feed.features.inc';
