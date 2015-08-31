@@ -19,7 +19,7 @@
   }
 }
 #header {
-  padding-top: 3em;
+  padding-top: $nav-height;
   margin-left: auto;
   margin-right: auto;
   max-width: $wrapper-width;
@@ -53,8 +53,8 @@
  */
 
 #fixed-menu {
-  background: white;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  background: $white;
+  @include box-shadow(2px, 0, 5px, 0, rgba(0, 0, 0, 0.15), false);
   position: fixed;
   top: 0;
   width: 100%;
@@ -68,10 +68,21 @@
       font-family: $font-titles;
       float: left;
       font-size: 1.2em;
+      @include small-screen {
+        float: none;
+        font-size: 1em;
+        text-align: center;
+      }
     }
     ul {
       float: right;
       margin: 1em 0;
+      @include small-screen {
+         float: none;
+         display: block;
+         text-align: center;
+         margin: 0.25em 0;
+      }
     }
   }
 }
