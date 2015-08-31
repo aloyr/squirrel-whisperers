@@ -59,42 +59,6 @@ audio:not([controls]) {
   display: none;
 }
 
-/**
- * Base
- *
- * Instead of relying on the fonts that are available on a user's computer, you
- * can use web fonts which, like images, are resources downloaded to the user's
- * browser. Because of the bandwidth and rendering resources required, web fonts
- * should be used with care.
- *
- * Numerous resources for web fonts can be found on Google. Here are a few
- * websites where you can find Open Source fonts to download:
- * - http://www.fontsquirrel.com/fontface
- * - http://www.theleagueofmoveabletype.com
- *
- * In order to use these fonts, you will need to convert them into formats
- * suitable for web fonts. We recommend the free-to-use Font Squirrel's
- * Font-Face Generator:
- *   http://www.fontsquirrel.com/fontface/generator
- *
- * The following is an example @font-face declaration. This font can then be
- * used in any ruleset using a property like this:  font-family: Example, serif;
- *
- * Since we're using Sass, you'll need to declare your font faces here, then you
- * can add them to the font variables in the _init.scss partial.
- */
-/*
-@font-face {
-  font-family: 'Example';
-  src: url('../fonts/example.eot');
-  src: url('../fonts/example.eot?iefix') format('eot'),
-    url('../fonts/example.woff') format('woff'),
-    url('../fonts/example.ttf') format('truetype'),
-    url('../fonts/example.svg#webfontOkOndcij') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-*/
 
 /**
  * 1. Set default font family to sans-serif.
@@ -134,14 +98,11 @@ body {
  * The order of link states are based on Eric Meyer's article:
  * http://meyerweb.com/eric/thoughts/2007/06/11/who-ordered-the-link-states
  */
-a:link {
-}
-a:visited {
-}
+a,
 a:hover,
-a:focus {
-}
+a:focus,
 a:active {
+  text-decoration: none;
 }
 
 /* Address `outline` inconsistency between Chrome and other browsers. */

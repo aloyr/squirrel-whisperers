@@ -6,14 +6,15 @@
  * Gives us a set of help documentation as recommended by the Drupal community standards.
  */
 function youtube_block_help($path, $arg) {
-  switch ($path) {
-    case 'examples/youtube_block':
-      return "<p>" . t("This custom contrib module allows users to add Youtube videos to a block.
-      To use, simply enable the Youtube block (in admin/blocks) and add as many Youtube video IDs
-      as you want. This module will not load the Youtube player directly, for performance reasons.
-      Instead, it will load just the video's thumbnail and will load the player only when the
-      thumbnail gets clicked.") . "</p>";
-  }
+    switch ($path) {
+        case 'examples/youtube_block':
+            return "<p>" . t("Just another way to display a bunch of Youtube videos for the Squirrel
+            Whisperers band. To use, simply enable the Youtube block (in admin/blocks) and add as
+             many Youtube video IDs as you want. This module will not load the Youtube player on page
+             load. Instead, it displays the video thumbnail for each video. The player will only load
+             when the thumbnail gets clicked. By doing so you reduce the size of your site by about
+             400-500 KB. Made exclusively for the Squirrel Whisperers band.") . "</p>";
+    }
 }
 
 /**
@@ -43,7 +44,7 @@ function youtube_block_block_configure($delta='') {
                 '#description' => t('<p>Add Youtube video IDs here. Separate multiple IDs with a comma.</p>
                 <p>An example with multiple IDs will look like:<br>
                 <em>juSrk9VUkUU,qAfzDsZCK2c,MZJ9UX7qtYg</em></p>'),
-                '#element_validate' => array( 'youtube_block_custom_validate' ),
+                //'#element_validate' => array( 'youtube_block_custom_validate' ),
                 '#default_value'=> variable_get('youtube_block_videos', '')
             );
             break;
@@ -81,7 +82,7 @@ function youtube_block_block_view($delta='') {
 
     switch($delta) {
         case 'youtube' :
-            $block['content'] = youtube_block_build_view();
+            $block['content'] = youtube_block_build_block();
             break;
     }
 
@@ -93,13 +94,13 @@ function youtube_block_block_view($delta='') {
  *
  * @return Returns a renderable array of block content.
  */
-function youtube_block_build_view() {
+function youtube_block_build_block() {
     $block = array();
 
-    //Get rid of any spaces + trailing/leading commas
-    $id_cleanup = preg_replace('/\s+/', '', trim(variable_get('youtube_block_videos', '')));
+    // Get rid of any spaces
+    $id_cleanup = preg_replace('/\s+/', '', variable_get('youtube_block_videos', ''));
 
-    //Get all Youtube videos
+    // Create an array of the IDs
     $videos = explode(',', $id_cleanup);
 
     $output = '';
@@ -108,8 +109,8 @@ function youtube_block_build_view() {
             $image = theme_image(array(
                 'path' => ('https://img.youtube.com/vi/' . $video . '/hqdefault.jpg'),
                 'alt' => t('Youtube Video'),
-                'title' => t('Youtube Video'),
-                'attributes' => array('class' => 'youtube-video'),
+                'title' => t('Play Video'),
+                'attributes' => array('id' => $video),
             ));
             $output .= '<div class="youtube">' . $image . '</div>';
         }
@@ -118,7 +119,8 @@ function youtube_block_build_view() {
     // Block output in HTML with div wrapper and custom JS + CSS loaded
     $block = array(
         'images' => array(
-            '#prefix' => '',
+            '#prefix' => '<div class="section-wrapper">',
+            '#suffix' => '</div>',
             '#type' => 'markup',
             '#markup' => $output,
             '#attached' => array(

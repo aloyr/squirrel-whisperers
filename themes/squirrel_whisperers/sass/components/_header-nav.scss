@@ -1,0 +1,101 @@
+/**
+ * @file
+ * SMACSS Modules
+ *
+ * Adds styles for the band's main navigation.
+ */
+
+/**
+ * Branding header.
+ *
+ */
+
+%link-style {
+  color: $blue;
+  text-decoration: none;
+  &:hover {
+    color: $dark-blue;
+    @include transition(color, 0.5s, ease-out, 0.5s);
+  }
+}
+
+#header
+{
+  padding-top: 3em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $wrapper-width;
+  text-align: center;
+
+  .header__name-and-slogan {
+    float: none;
+
+    .header__site-name {
+      font-family: $font-titles;
+      font-size: 3em;
+
+      a, a:visited {
+        @extend %link-style;
+      }
+    }
+
+    .header__logo {
+      float: none;
+      .header__logo-image {
+        vertical-align: middle;
+      }
+    }
+
+    .header__site-slogan {
+      color: $grey;
+      font-size: 0.65em;
+      font-style: italic;
+      text-align: center;
+    }
+  }
+
+}
+
+#fixed-menu
+{
+  background: white;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: none;
+  z-index: 99;
+
+
+  .fixed-menu-wrapper  {
+    margin: auto;
+    max-width: $wrapper-width;
+    h4 {
+      color: $blue;
+      font-family: $font-titles;
+      float: left;
+      font-size: 1.2em;
+    }
+    ul {
+      float: right;
+      margin: 1em 0;
+    }
+
+  }
+}
+
+/**
+ * Branding navigation.
+ */
+
+.main-nav
+{
+  background: white;
+
+  .links  {
+    a, a:visited {
+      @extend %link-style;
+      font-size: 0.8em;
+    }
+  }
+}

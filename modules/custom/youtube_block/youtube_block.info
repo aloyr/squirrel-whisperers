@@ -1,5 +1,5 @@
 name = Youtube Block
 version = 7.x-1.0
-description = Just another way to display a bunch of Youtube videos.
-package = Youtube
+description = Just another way to display a bunch of Youtube videos for the Squirrel Whisperers band.
+package = Squirrel Whisperers
 core = 7.x

@@ -5,66 +5,86 @@
  * In order for this JavaScript to be loaded on pages, see the instructions in
  * the README.txt next to this file.
  */
+(function($, Drupal, window, document, undefined) {
 
+    Drupal.behaviors.squirrel_whisperers = {
+        attach: function(context, settings) {
 
-(function ($, Drupal, window, document, undefined) {
+            //Track whether modal is visible
+            var counter = 0;
+            //Add modal box and play a song
+            function addModal(event, song, album, albumCover, buyItNow, trackNumber, trackPreview) {
+                if (counter != 1) {
+                    var makeDiv = document.createElement('div');
+                    makeDiv.className = 'table-size';
+                    var overlayDiv = document.createElement('div');
+                    overlayDiv.className = 'table-size-overlay';
+                    overlayDiv.innerHTML += '<div class="album-cover"><img src="' + albumCover + '"></div>';
+                    overlayDiv.innerHTML += '<div class="track-info"><h3>' + song + '</h3><h4>' + album + '</h4></div>';
+                    overlayDiv.innerHTML += '<audio src="' + trackPreview + '" controls autoplay>' + '<p>Your browser does not support the audio element</p></audio>';
+                    overlayDiv.innerHTML += '<a href="' + buyItNow + '" class="btn" target="_blank">Buy on iTunes</a>';
+                    overlayDiv.innerHTML += '<a href="#close" class="btn" data-action="closeModal">Close</a>';
+                    makeDiv.appendChild(overlayDiv);
+                    jQuery('ul.discography-songs').prepend(makeDiv);
+                    counter++;
+                }
+            }
 
-Drupal.behaviors.squirrel_whisperers = {
-  attach: function(context, settings) {
+            function removeModal() {
+                //Remove modal box
+                if (counter == 1) {
+                    jQuery('div.table-size').remove();
+                    counter = 0;
+                }
+            }
 
-      //Track whether modal is visible
-      var counter = 0;
-      //Add modal box and play a song
-      function addModal(event, song, album, albumCover, buyItNow, trackNumber, trackPreview) {
-          if (counter != 1) {
-              var makeDiv = document.createElement('div');
-              makeDiv.className = 'table-size';
-              var overlayDiv = document.createElement('div');
-              overlayDiv.className = 'table-size-overlay';
-              overlayDiv.innerHTML += "<span class='img'><img src=" + albumCover + "></span>";
-              overlayDiv.innerHTML += "<label>Rows<input type='text' id='ht-rows' name='rows' value='0' maxlength='3'></label> x ";
-              overlayDiv.innerHTML += "<label>Columns<input type='text' id='ht-cols' name='cols' value='0' maxlength='3'></label>";
-              overlayDiv.innerHTML += "<a href='#close' class='btn table-size-close' data-action='closeModal'>Cancel</a>";
-              makeDiv.appendChild(overlayDiv);
-              jQuery('ul.discography-songs').prepend(makeDiv);
-              counter++;
-          }
-      }
+            var actions = {
+                showModal: function(event, song, album, albumCover, buyItNow, trackNumber, trackPreview) {
+                    addModal(event, song, album, albumCover, buyItNow, trackNumber, trackPreview);
+                },
+                closeModal: removeModal
+            };
 
-      function removeModal() {
-          //Remove modal box
-          if (counter == 1) {
-              jQuery('div.table-size').remove();
-              counter = 0;
-          }
-      }
+            // Trigger for click events so we can play the song
+            jQuery(document.body).delegate('ul.discography-songs a[data-action]', 'click', function(event) {
+                var $this = jQuery(this),
+                    action = $this.data('action'),
+                    song = $this.data('track'),
+                    trackNumber = $this.data('track-number'),
+                    trackPreview = $this.data('track-preview'),
+                    album = $this.data('album'),
+                    albumCover = $this.data('album-cover'),
+                    buyItNow = $this.data('buy-it-now');
 
-      var actions = {
-          showModal: function (event, song, album, albumCover, buyItNow, trackNumber, trackPreview) {
-              addModal(event, song, album, albumCover, buyItNow, trackNumber, trackPreview);
-          },
-          closeModal: removeModal
-      };
+                event.preventDefault();
 
-      jQuery(document.body).delegate('ul.discography-songs a[data-action]', 'click', function (event) {
-          var $this = jQuery(this),
-              action = $this.data('action'),
-              song = $this.val(),
-              album = $this.data('album'),
-              albumCover = $this.data('album-cover'),
-              buyItNow = $this.data('buy-it-now'),
-              trackNumber = $this.data('track-number'),
-              trackPreview = $this.data('track-preview');
+                // If there's an action with the given name, call it
+                if (typeof actions[action] === 'function') {
+                    actions[action].call(this, event, song, album, albumCover, buyItNow, trackNumber, trackPreview);
+                }
+            });
 
-          event.preventDefault();
+            // Show the fixed menu when the user scrolls past main nav
+            jQuery(window).bind('scroll', function() {
+                if (jQuery(window).scrollTop() > 167) {
+                    jQuery('#fixed-menu').show();
+                } else {
+                    jQuery('#fixed-menu').hide();
+                }
+            });
 
-          // If there's an action with the given name, call it
-          if (typeof actions[action] === 'function') {
-              actions[action].call(this, event, song, album, albumCover, buyItNow, trackNumber, trackPreview);
-          }
-      });
+            // Scroll animation effect
+            jQuery('.main-nav a').click(function(event) {
+                event.preventDefault();
+                var targetID = jQuery(this).attr('href'),
+                    hash = '#' + targetID.substring(targetID.indexOf('#')+1),
+                    target = jQuery(hash).offset().top - 54;
+                jQuery('body, html').animate({
+                    scrollTop: target + 'px'
+                }, 300);
+            });
 
-  }
-};
+        }
+    };
 
 })(jQuery, Drupal, this, this.document);
