@@ -44,20 +44,18 @@ function squirrel_whisperers_panel_default_page_manager_pages() {
     'name' => 'panel',
   );
   $display = new panels_display();
-  $display->layout = 'zen_no_wrapper';
+  $display->layout = 'onecol';
   $display->layout_settings = array(
     'main_classes' => '',
   );
   $display->panel_settings = array(
     'style_settings' => array(
       'default' => NULL,
-      'middle' => array(
-        'list_type' => 'ul',
-      ),
       'main' => NULL,
+      'middle' => NULL,
     ),
     'middle' => array(
-      'style' => 'list',
+      'style' => 'naked',
     ),
     'main' => array(
       'style' => 'naked',
@@ -70,7 +68,7 @@ function squirrel_whisperers_panel_default_page_manager_pages() {
   $display->panels = array();
     $pane = new stdClass();
     $pane->pid = 'new-5b53e2d8-7003-41ce-9dfe-e27cd9c1bc1e';
-    $pane->panel = 'main';
+    $pane->panel = 'middle';
     $pane->type = 'block';
     $pane->subtype = 'views-discography-block';
     $pane->shown = TRUE;
@@ -93,10 +91,10 @@ function squirrel_whisperers_panel_default_page_manager_pages() {
     $pane->locks = array();
     $pane->uuid = '5b53e2d8-7003-41ce-9dfe-e27cd9c1bc1e';
     $display->content['new-5b53e2d8-7003-41ce-9dfe-e27cd9c1bc1e'] = $pane;
-    $display->panels['main'][0] = 'new-5b53e2d8-7003-41ce-9dfe-e27cd9c1bc1e';
+    $display->panels['middle'][0] = 'new-5b53e2d8-7003-41ce-9dfe-e27cd9c1bc1e';
     $pane = new stdClass();
     $pane->pid = 'new-c2a5881f-ffc3-4d28-baf7-102aa3456635';
-    $pane->panel = 'main';
+    $pane->panel = 'middle';
     $pane->type = 'block';
     $pane->subtype = 'twitter_block-twitter';
     $pane->shown = TRUE;
@@ -119,10 +117,10 @@ function squirrel_whisperers_panel_default_page_manager_pages() {
     $pane->locks = array();
     $pane->uuid = 'c2a5881f-ffc3-4d28-baf7-102aa3456635';
     $display->content['new-c2a5881f-ffc3-4d28-baf7-102aa3456635'] = $pane;
-    $display->panels['main'][1] = 'new-c2a5881f-ffc3-4d28-baf7-102aa3456635';
+    $display->panels['middle'][1] = 'new-c2a5881f-ffc3-4d28-baf7-102aa3456635';
     $pane = new stdClass();
     $pane->pid = 'new-a218d169-0a12-4b6a-af0e-84c674f0c28c';
-    $pane->panel = 'main';
+    $pane->panel = 'middle';
     $pane->type = 'block';
     $pane->subtype = 'youtube_block-youtube';
     $pane->shown = TRUE;
@@ -145,7 +143,7 @@ function squirrel_whisperers_panel_default_page_manager_pages() {
     $pane->locks = array();
     $pane->uuid = 'a218d169-0a12-4b6a-af0e-84c674f0c28c';
     $display->content['new-a218d169-0a12-4b6a-af0e-84c674f0c28c'] = $pane;
-    $display->panels['main'][2] = 'new-a218d169-0a12-4b6a-af0e-84c674f0c28c';
+    $display->panels['middle'][2] = 'new-a218d169-0a12-4b6a-af0e-84c674f0c28c';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = 'new-5b53e2d8-7003-41ce-9dfe-e27cd9c1bc1e';
   $handler->conf['display'] = $display;
