@@ -41,9 +41,9 @@ cd $DRUPALROOT/$DRUPALDATA
 
 printf '\n-- Installing Drupal --\n\n'
 
-printf '\n-- *** If you're having difficulty installing Drupal with this script, install a Drupal
+printf "\n-- *** If you're having difficulty installing Drupal with this script, install a Drupal
 instance manually. Then, comment out the install line in the script and run it again.  When prompted,
-insert the path to your manual install. *** --\n\n'
+insert the path to your manual install. *** --\n\n"
 
 # Install Drupal https://www.drupal.org/documentation/install/developers
 drush si minimal --db-url=mysql://$SQLUSER:$SQLPASS@localhost/$drupal_database --account-name=$DRUPALUSER --account-pass=$DRUPALPASS --account-mail=$ACCOUNTMAIL --site-name='Squirrel Whisperers' -y
@@ -64,9 +64,12 @@ cp -r $INSTALLDIR/$DRUPALDATA/local_install/libraries $DRUPALROOT/$DRUPALDATA/si
 
 printf '\n-- Installing feature dependencies --\n\n'
 
-drush en admin_menu ctools feeds feeds_ui feeds_ex features page_manager panels views view_ui -y
+drush dl admin_menu ctools feeds feeds_ex features panels views -y
+drush en admin_menu ctools feeds feeds_ui feeds_ex features page_manager panels views views_ui -y
 
 drush pm-enable menu field_ui -y
+
+drush cc all -y
 
 printf '\n-- Installing custom features --\n\n'
 
